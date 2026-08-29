@@ -1,8 +1,12 @@
+import { Navbar } from './components/Navbar';
+import { Home } from './pages/Home';
+
 export function App() {
   return (
-    <div>
-      <h1>Portfolio EliasLd</h1>
-    </div>
+    <>
+      <Navbar />
+      <Home />
+    </>
   );
 }
 
