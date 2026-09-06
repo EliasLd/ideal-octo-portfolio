@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { DynamicSection } from '../components/DynamicSection';
 import { api } from '../services/api';
+import { formatDateRange } from '../utils/date';
+import { DynamicSection } from '../components/DynamicSection';
 import type { Section, Experience, Project, Tech, Media, Link } from '../types/api';
 
 export function Home() {
@@ -55,7 +56,15 @@ export function Home() {
         items={experiences}
         renderItem={(exp) => (
           <div key={exp.id} style={{ marginBottom: '2rem' }}>
-            <h3>{exp.job_title} — {exp.company}</h3>
+            <h3>{exp.job_title} @ {exp.company}</h3>
+            <span style={{
+              opacity: '0.7',
+              fontSize: '0.9em',
+              display: 'block',
+              marginBottom: '1rem'
+            }}>
+              {formatDateRange(exp.start_date, exp.end_date)}
+            </span>
             <div className="markdown-content">
               <ReactMarkdown>{exp.description}</ReactMarkdown>
             </div>
