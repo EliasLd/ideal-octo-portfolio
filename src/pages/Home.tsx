@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { SectionWrapper } from '../components/SectionWrapper';
+import { DynamicSection } from '../components/DynamicSection';
 import { api } from '../services/api';
 import type { Section, Experience, Project, Tech, Media, Link } from '../types/api';
 
@@ -35,88 +35,82 @@ export function Home() {
   return (
     <main style={{ animation: 'fadeIn 1s ease-in' }}>
 
-      {/* SECTIONS */}
-      {sections.length > 0 && (
-        <SectionWrapper id="sections" showTilde={false}>
-          {sections.map((section) => (
-            <div key={section.id} style={{ marginBottom: '3rem' }}>
-              <h2>{section.title}</h2>
-              <div className="markdown-content">
-                <ReactMarkdown>{section.content}</ReactMarkdown>
-              </div>
+      <DynamicSection
+        id="sections"
+        items={sections}
+        showTilde={false}
+        renderItem={(section) => (
+          <div key={section.id} style={{ marginBottom: '3rem' }}>
+            <h2>{section.title}</h2>
+            <div className="markdown-content">
+              <ReactMarkdown>{section.content}</ReactMarkdown>
             </div>
-          ))}
-        </SectionWrapper>
-      )}
-
-      {/* EXPERIENCES */}
-      {experiences.length > 0 && (
-        <SectionWrapper id="experiences">
-          {experiences.map((exp) => (
-            <div key={exp.id} style={{ marginBottom: '2rem' }}>
-              <h3>{exp.job_title} — {exp.company}</h3>
-              <div className="markdown-content">
-                <ReactMarkdown>{exp.description}</ReactMarkdown>
-              </div>
-            </div>
-          ))}
-        </SectionWrapper>
-      )}
-
-      {/* PROJECTS */}
-      {projects.length > 0 && (
-        <SectionWrapper id="projects">
-          {projects.map((project) => (
-            <div key={project.id} style={{ marginBottom: '2rem' }}>
-              <h3>{project.title}</h3>
-              <div className="markdown-content">
-                <ReactMarkdown>{project.description}</ReactMarkdown>
-              </div>
-            </div>
-          ))}
-        </SectionWrapper>
-      )}
-
-      {/* TECH */}
-      {techs.length > 0 && (
-        <SectionWrapper id="tech">
-          {techs.map((tech) => (
-            <div key={tech.id} style={{ marginBottom: '2rem' }}>
-              <h3>{tech.name}</h3>
-              <div className="markdown-content">
-                <ReactMarkdown>{tech.impression}</ReactMarkdown>
-              </div>
-            </div>
-          ))}
-        </SectionWrapper>
-      )}
-
-      {/* MEDIA */}
-      {media.length > 0 && (
-        <SectionWrapper id="media">
-          {media.map((item) => (
-            <div key={item.id} style={{ marginBottom: '2rem' }}>
-              <h3>{item.title}</h3>
-              <div className="markdown-content">
-                <ReactMarkdown>{item.impression}</ReactMarkdown>
-              </div>
-            </div>
-          ))}
-        </SectionWrapper>
-      )}
-
-      {/* LINKS */}
-      {links.length > 0 && (
-        <SectionWrapper id="links">
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            {links.map((link) => (
-              <a key={link.id} href={link.url} target="_blank" rel="noopener noreferrer">
-                {link.label}
-              </a>
-            ))}
           </div>
-        </SectionWrapper>
-      )}
+        )}
+      />
+
+      <DynamicSection
+        id="experiences"
+        items={experiences}
+        renderItem={(exp) => (
+          <div key={exp.id} style={{ marginBottom: '2rem' }}>
+            <h3>{exp.job_title} — {exp.company}</h3>
+            <div className="markdown-content">
+              <ReactMarkdown>{exp.description}</ReactMarkdown>
+            </div>
+          </div>
+        )}
+      />
+
+      <DynamicSection
+        id="projects"
+        items={projects}
+        renderItem={(project) => (
+          <div key={project.id} style={{ marginBottom: '2rem' }}>
+            <h3>{project.title}</h3>
+            <div className="markdown-content">
+              <ReactMarkdown>{project.description}</ReactMarkdown>
+            </div>
+          </div>
+        )}
+      />
+
+      <DynamicSection
+        id="tech"
+        items={techs}
+        renderItem={(tech) => (
+          <div key={tech.id} style={{ marginBottom: '2rem' }}>
+            <h3>{tech.name}</h3>
+            <div className="markdown-content">
+              <ReactMarkdown>{tech.impression}</ReactMarkdown>
+            </div>
+          </div>
+        )}
+      />
+
+      <DynamicSection
+        id="media"
+        items={media}
+        renderItem={(item) => (
+          <div key={item.id} style={{ marginBottom: '2rem' }}>
+            <h3>{item.title}</h3>
+            <div className="markdown-content">
+              <ReactMarkdown>{item.impression}</ReactMarkdown>
+            </div>
+          </div>
+        )}
+      />
+
+      <DynamicSection
+        id="links"
+        items={links}
+        containerStyle={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}
+        renderItem={(link) => (
+          <a key={link.id} href={link.url} target="_blank" rel="noopener noreferrer">
+            {link.label}
+          </a>
+        )}
+      />
 
       <footer style={{ marginTop: '4rem', paddingBottom: '2rem', color: 'var(--text-muted)' }}>
         <span className="vim-tilde">~</span>
