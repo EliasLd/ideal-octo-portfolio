@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { api } from '../services/api';
+import { api, getMediaUrl } from '../services/api';
 import { formatDateRange } from '../utils/date';
 import { DynamicSection } from '../components/DynamicSection';
 import type { Section, Experience, Project, Tech, Media, Link } from '../types/api';
@@ -78,7 +78,24 @@ export function Home() {
         items={projects}
         renderItem={(project) => (
           <div key={project.id} style={{ marginBottom: '2rem' }}>
-            <h3>{project.title}</h3>
+            <a href={project.github_url}>
+              <h3>{project.title}</h3>
+            </a>
+            {project.image_path && (
+              <img
+                src={getMediaUrl(project.image_path)}
+                alt={`${project.title} preview`}
+                style={{
+                  width: '100%',
+                  maxWidth: '400px',
+                  aspectRatio: '16/9',
+                  objectFit: 'cover',
+                  borderRadius: '4px',
+                  marginTop: '1rem',
+                  marginBottom: '1rem'
+                }}
+              />
+            )}
             <div className="markdown-content">
               <ReactMarkdown>{project.description}</ReactMarkdown>
             </div>
@@ -93,6 +110,20 @@ export function Home() {
         renderItem={(tech) => (
           <div key={tech.id} style={{ marginBottom: '2rem' }}>
             <h3>{tech.name}</h3>
+            {tech.image_path && (
+              <img
+                src={getMediaUrl(tech.image_path)}
+                alt={`${tech.name} logo`}
+                style={{
+                  width: 'auto',
+                  height: '48px',
+                  objectFit: 'contain',
+                  borderRadius: '4px',
+                  marginTop: '0.5rem',
+                  marginBottom: '1rem'
+                }}
+              />
+            )}
             <div className="markdown-content">
               <ReactMarkdown>{tech.impression}</ReactMarkdown>
             </div>
@@ -107,6 +138,21 @@ export function Home() {
         renderItem={(item) => (
           <div key={item.id} style={{ marginBottom: '2rem' }}>
             <h3>{item.title}</h3>
+            {item.image_path && (
+              <img
+                src={getMediaUrl(item.image_path)}
+                alt={`${item.title} cover`}
+                style={{
+                  width: '100%',
+                  maxWidth: '250px',
+                  aspectRatio: '16/9',
+                  objectFit: 'cover',
+                  borderRadius: '4px',
+                  marginTop: '0.5rem',
+                  marginBottom: '1rem'
+                }}
+              />
+            )}
             <div className="markdown-content">
               <ReactMarkdown>{item.impression}</ReactMarkdown>
             </div>
