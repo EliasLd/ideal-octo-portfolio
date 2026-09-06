@@ -3,6 +3,7 @@ import { SectionWrapper } from './SectionWrapper';
 
 interface DynamicSectionProps<T> {
   id: string;
+  title?: string;
   items: T[];
   renderItem: (item: T) => ReactNode;
   showTilde?: boolean;
@@ -11,6 +12,7 @@ interface DynamicSectionProps<T> {
 
 export function DynamicSection<T>({
   id,
+  title,
   items,
   renderItem,
   showTilde = true,
@@ -23,6 +25,7 @@ export function DynamicSection<T>({
 
   return (
     <SectionWrapper id={id} showTilde={showTilde}>
+      {title && <h2 style={{ marginBottom: '2rem' }}>{title}</h2>}
       <div style={containerStyle}>
         {items.map(renderItem)}
       </div>

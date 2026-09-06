@@ -36,7 +36,7 @@ export function Home() {
     <main style={{ animation: 'fadeIn 1s ease-in' }}>
 
       <DynamicSection
-        id="sections"
+        id="introduction"
         items={sections}
         showTilde={false}
         renderItem={(section) => (
@@ -51,6 +51,7 @@ export function Home() {
 
       <DynamicSection
         id="experiences"
+        title="My work experiences"
         items={experiences}
         renderItem={(exp) => (
           <div key={exp.id} style={{ marginBottom: '2rem' }}>
@@ -64,6 +65,7 @@ export function Home() {
 
       <DynamicSection
         id="projects"
+        title="Things I'm building"
         items={projects}
         renderItem={(project) => (
           <div key={project.id} style={{ marginBottom: '2rem' }}>
@@ -77,6 +79,7 @@ export function Home() {
 
       <DynamicSection
         id="tech"
+        title="Tech I like"
         items={techs}
         renderItem={(tech) => (
           <div key={tech.id} style={{ marginBottom: '2rem' }}>
@@ -90,6 +93,7 @@ export function Home() {
 
       <DynamicSection
         id="media"
+        title="What I'm reading & watching"
         items={media}
         renderItem={(item) => (
           <div key={item.id} style={{ marginBottom: '2rem' }}>
@@ -103,6 +107,7 @@ export function Home() {
 
       <DynamicSection
         id="links"
+        title="Where you can find/reach me :)"
         items={links}
         containerStyle={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}
         renderItem={(link) => (
