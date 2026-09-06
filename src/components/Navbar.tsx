@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
-  { name: 'Sections', href: '#sections' },
+  { name: 'Introduction', href: '#introduction' },
   { name: 'Experiences', href: '#experiences' },
   { name: 'My works', href: '#projects' },
   { name: 'Tech I like', href: '#tech' },
