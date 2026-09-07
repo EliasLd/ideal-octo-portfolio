@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+
 import { api, getMediaUrl } from '../services/api';
-import { formatDateRange } from '../utils/date';
 import { DynamicSection } from '../components/DynamicSection';
+import { formatDateRange } from '../utils/date';
 import { getLinkIcon } from '../utils/icons';
+import { useVimBindings } from '../hooks/useVimKeyBindings';
+
 import type { Section, Experience, Project, Tech, Media, Link } from '../types/api';
 
 export function Home() {
@@ -13,6 +16,8 @@ export function Home() {
   const [techs, setTechs] = useState<Tech[]>([]);
   const [media, setMedia] = useState<Media[]>([]);
   const [links, setLinks] = useState<Link[]>([]);
+
+  useVimBindings();
 
   useEffect(() => {
     Promise.all([
@@ -190,9 +195,33 @@ export function Home() {
         )}
       />
 
-      <footer style={{ marginTop: '4rem', paddingBottom: '2rem', color: 'var(--text-muted)' }}>
-        <span className="vim-tilde">~</span>
-        <p>© {new Date().getFullYear()} EliasLd</p>
+      <footer style={{
+        marginTop: '4rem',
+        paddingBottom: '2rem',
+        color: 'var(--text-muted)',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+        flexWrap: 'wrap',
+        gap: '1rem'
+      }}>
+        <div>
+          <span className="vim-tilde">~</span>
+          <p>© {new Date().getFullYear()} EliasLd</p>
+        </div>
+
+        <div className="desktop-only" style={{
+          display: 'flex',
+          gap: '1rem',
+          alignItems: 'center',
+          fontSize: '0.8rem',
+          flexWrap: 'wrap'
+        }}>
+          <span><span className="kbd-key">e</span> menu</span>
+          <span><span className="kbd-key">j</span>/<span className="kbd-key">k</span> scroll</span>
+          <span><span className="kbd-key">gg</span> top</span>
+          <span><span className="kbd-key">G</span> bottom</span>
+        </div>
       </footer>
     </main>
   );

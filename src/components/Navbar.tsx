@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
@@ -25,6 +25,17 @@ export function Navbar() {
     }
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() === 'e') {
+        setIsOpen((prev) => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <>
       <button
@@ -38,11 +49,14 @@ export function Navbar() {
           border: 'none',
           color: 'var(--text-color)',
           cursor: 'pointer',
-          padding: '0.5rem',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
         aria-label="Toggle menu"
       >
         {isOpen ? <X size={28} /> : <Menu size={28} />}
+        <span className="desktop-only kbd-key">e</span>
       </button>
 
       {isOpen && (
