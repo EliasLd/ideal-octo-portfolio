@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { api, getMediaUrl } from '../services/api';
 import { formatDateRange } from '../utils/date';
 import { DynamicSection } from '../components/DynamicSection';
+import { getLinkIcon } from '../utils/icons';
 import type { Section, Experience, Project, Tech, Media, Link } from '../types/api';
 
 export function Home() {
@@ -56,7 +57,12 @@ export function Home() {
         items={experiences}
         renderItem={(exp) => (
           <div key={exp.id} style={{ marginBottom: '2rem' }}>
-            <h3>{exp.job_title} @ {exp.company}</h3>
+            <h3>
+              {exp.job_title} @{' '}
+              <ReactMarkdown components={{ p: 'span' }}>
+                {exp.company}
+              </ReactMarkdown>
+            </h3>
             <span style={{
               opacity: '0.7',
               fontSize: '0.9em',
@@ -166,7 +172,19 @@ export function Home() {
         items={links}
         containerStyle={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}
         renderItem={(link) => (
-          <a key={link.id} href={link.url} target="_blank" rel="noopener noreferrer">
+          <a
+            key={link.id}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              fontWeight: 500,
+            }}
+          >
+            {getLinkIcon(link.kind)}
             {link.label}
           </a>
         )}
