@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 
 import { api, getMediaUrl } from '../services/api';
 import { DynamicSection } from '../components/DynamicSection';
+import { GitHubStats } from '../components/GitHubStats';
 import { formatDateRange } from '../utils/date';
 import { getLinkIcon } from '../utils/icons';
 import { useVimBindings } from '../hooks/useVimKeyBindings';
@@ -83,15 +84,32 @@ export function Home() {
         )}
       />
 
+
       <DynamicSection
         id="projects"
         title="Things I'm building"
         items={projects}
         renderItem={(project) => (
           <div key={project.id} style={{ marginBottom: '2rem' }}>
-            <a href={project.github_url}>
-              <h3>{project.title}</h3>
-            </a>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                flexWrap: 'wrap',
+              }}
+            >
+              <a href={project.github_url}>
+                <h3 style={{ margin: 0 }}>
+                  {project.title}
+                </h3>
+              </a>
+
+              {project.github_url && (
+                <GitHubStats githubUrl={project.github_url} />
+              )}
+            </div>
+
             {project.image_path && (
               <img
                 src={getMediaUrl(project.image_path)}
@@ -103,13 +121,17 @@ export function Home() {
                   objectFit: 'cover',
                   borderRadius: '4px',
                   marginTop: '1rem',
-                  marginBottom: '1rem'
+                  marginBottom: '1rem',
                 }}
               />
             )}
+
             <div className="markdown-content">
-              <ReactMarkdown>{project.description}</ReactMarkdown>
+              <ReactMarkdown>
+                {project.description}
+              </ReactMarkdown>
             </div>
+
           </div>
         )}
       />
