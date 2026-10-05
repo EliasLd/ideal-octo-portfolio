@@ -166,7 +166,7 @@ export function Home() {
 
       <DynamicSection
         id="media"
-        title="What I'm reading & watching"
+        title="What I'm into"
         items={media}
         renderItem={(item) => (
           <div key={item.id} style={{ marginBottom: '2rem' }}>
