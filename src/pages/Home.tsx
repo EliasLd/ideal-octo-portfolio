@@ -7,8 +7,11 @@ import { GitHubStats } from '../components/GitHubStats';
 import { formatDateRange } from '../utils/date';
 import { getLinkIcon } from '../utils/icons';
 import { useVimBindings } from '../hooks/useVimKeyBindings';
+import { FileText, ExternalLink } from 'lucide-react';
 
 import type { Section, Experience, Project, Tech, Media, Link } from '../types/api';
+
+const RESUME_MEDIA_TITLE = 'my resume';
 
 export function Home() {
   const [sections, setSections] = useState<Section[]>([]);
@@ -17,6 +20,16 @@ export function Home() {
   const [techs, setTechs] = useState<Tech[]>([]);
   const [media, setMedia] = useState<Media[]>([]);
   const [links, setLinks] = useState<Link[]>([]);
+
+  const resumeMedia = media.find(
+    (item) =>
+      item.title.trim().toLowerCase() === RESUME_MEDIA_TITLE
+  );
+
+  const otherMedia = media.filter(
+    (item) =>
+      item.title.trim().toLowerCase() !== RESUME_MEDIA_TITLE
+  );
 
   useVimBindings();
 
@@ -53,6 +66,46 @@ export function Home() {
             <div className="markdown-content">
               <ReactMarkdown>{section.content}</ReactMarkdown>
             </div>
+          </div>
+        )}
+      />
+
+
+
+      <DynamicSection
+        id="resume"
+        title="My resume"
+        items={resumeMedia ? [resumeMedia] : []}
+        renderItem={(resume) => (
+          <div key={resume.id} style={{ marginBottom: '2rem' }}>
+            {resume.impression && (
+              <div
+                className="markdown-content"
+                style={{ marginTop: '1rem' }}
+              >
+                <ReactMarkdown>
+                  {resume.impression}
+                </ReactMarkdown>
+              </div>
+            )}
+            {resume.image_path && (
+              <a
+                href={getMediaUrl(resume.image_path)}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open my resume PDF in a new tab"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  fontWeight: 500,
+                }}
+              >
+                <FileText size={18} aria-hidden="true" />
+                <span>View my resume (PDF)</span>
+                <ExternalLink size={14} aria-hidden="true" />
+              </a>
+            )}
           </div>
         )}
       />
@@ -167,7 +220,7 @@ export function Home() {
       <DynamicSection
         id="media"
         title="What I'm into"
-        items={media}
+        items={otherMedia}
         renderItem={(item) => (
           <div key={item.id} style={{ marginBottom: '2rem' }}>
             <h3>{item.title}</h3>
