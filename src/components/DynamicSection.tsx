@@ -25,7 +25,7 @@ export function DynamicSection<T>({
 
   return (
     <SectionWrapper id={id} showTilde={showTilde}>
-      {title && <h2 style={{ marginBottom: '2rem' }}>{title}</h2>}
+      {title && <h2 style={{ marginBottom: '1rem' }}>{title}</h2>}
       <div style={containerStyle}>
         {items.map(renderItem)}
       </div>
