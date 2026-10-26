@@ -8,7 +8,7 @@ interface SectionWrapperProps {
 
 export function SectionWrapper({ id, children, showTilde = true }: SectionWrapperProps) {
   return (
-    <section id={id} style={{ paddingTop: '2rem', paddingBottom: '1rem' }}>
+    <section id={id} style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
       {showTilde && <span className="vim-tilde">~</span>}
       {children}
     </section>
