@@ -62,7 +62,7 @@ export function Home() {
         showTilde={false}
         renderItem={(section) => (
           <div key={section.id} style={{ marginBottom: '3rem' }}>
-            <h2>{section.title}</h2>
+            <h2 style={{ marginBottom: '1rem' }}>{section.title}</h2>
             <div className="markdown-content">
               <ReactMarkdown>{section.content}</ReactMarkdown>
             </div>
